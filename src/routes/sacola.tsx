@@ -27,7 +27,7 @@ const STEPS = ["Aguardando vendedor", "Preparando", "Pronto para retirada"];
 
 function Cart() {
   const { products, cart, setQty, clearCart, addOrder, setOrderStatus, user } = useStore();
-  const items = products.filter((p) => cart[p.id]).map((p) => ({ ...p, qty: cart[p.id] }));
+  const items = products.filter((p) => cart[p.id]).map((p) => ({ ...p, qty: cart[p.id] ?? 0 }));
   const [mode, setMode] = useState<"pickup" | "delivery">("pickup");
   const [point, setPoint] = useState(POINTS[0]);
   const [room, setRoom] = useState("");
@@ -54,8 +54,8 @@ function Cart() {
   };
 
   const checkout = () => {
-    if (mode === "delivery" && !room.trim()) return toast.error("Informe a sala/prédio para entrega");
-    if (pay === "card" && (card.number.replace(/\D/g, "").length < 12 || !card.name || !card.exp || card.cvv.length < 3)) return toast.error("Preencha os dados do cartão");
+    if (mode === "delivery" && !room.trim()) { toast.error("Informe a sala/prédio para entrega"); return; }
+    if (pay === "card" && (card.number.replace(/\D/g, "").length < 12 || !card.name || !card.exp || card.cvv.length < 3)) { toast.error("Preencha os dados do cartão"); return; }
     const id = "#" + Math.floor(1100 + Math.random() * 900);
     addOrder({
       id, customer: user?.name ?? "Visitante", items: items.map((i) => ({ name: i.name, qty: i.qty })), total: t.total,

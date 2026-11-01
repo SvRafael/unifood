@@ -106,7 +106,7 @@ function ProductDialog({ open, setOpen }: { open: boolean; setOpen: (o: boolean)
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const price = parseFloat(String(f.get("price")).replace(",", "."));
-    if (!(price > 0)) return toast.error("Informe um preço válido");
+    if (!(price > 0)) { toast.error("Informe um preço válido"); return; }
     addProduct({ name: String(f.get("name")), category, price, description: String(f.get("description")), image: img || SAMPLE_IMG });
     setOpen(false); setImg("");
     toast.success("Produto publicado na vitrine!", { action: { label: "Ver vitrine", onClick: () => { setRole("buyer"); nav({ to: "/" }); } } });
