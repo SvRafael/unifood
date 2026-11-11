@@ -1,4 +1,10 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
+import imgBolo from "../../public/assets/bolo-de-pote-0.jpg";
+import imgEsfirra from "../../public/assets/espiha.jfif";
+import imgBrownie from "../../public/assets/beownie.jfif";
+import imgEmpada from "../../public/assets/empada.jfif";
+import imgSuco from "../../public/assets/sucos.jfif";
+import imgCookie from "../../public/assets/cookies.jfif";
 
 export type Category = "Bolos" | "Doces" | "Salgados" | "Bebidas" | "Saudável" | "Vegano";
 export const CATEGORIES: Category[] = ["Bolos", "Doces", "Salgados", "Bebidas", "Saudável", "Vegano"];
@@ -20,15 +26,13 @@ const u = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=cro
 export const SELLER_NAME = "Doces da Ju (Eng. Civil)";
 
 const INITIAL: Product[] = [
-  { id: "p1", name: "Bolo de Pote Ninho com Nutella", seller: SELLER_NAME, category: "Bolos", price: 12, description: "Camadas de massa fofinha, creme de leite Ninho e Nutella generosa. Pote de 250ml.", image: u("photo-1578985545062-69928b1d9587"), rating: 4.9, sold: 312 },
-  { id: "p2", name: "Coxinha de Frango com Catupiry", seller: "Salgados do Pedro (ADS)", category: "Salgados", price: 7, description: "Massa crocante, recheio cremoso de frango desfiado com Catupiry original.", image: u("photo-1601050690597-df0568f70950"), rating: 4.8, sold: 540 },
-  { id: "p3", name: "Brownie Artesanal 70%", seller: SELLER_NAME, category: "Doces", price: 8.5, description: "Chocolate 70% cacau, casquinha crocante e centro molhadinho.", image: u("photo-1606313564200-e75d5e30476c"), rating: 4.9, sold: 401 },
-  { id: "p4", name: "Empada de Palmito", seller: "Salgados do Pedro (ADS)", category: "Salgados", price: 6.5, description: "Massa amanteigada que desmancha, recheio de palmito temperado.", image: u("photo-1509440159596-0249088772ff"), rating: 4.6, sold: 188 },
-  { id: "p5", name: "Palha Italiana", seller: "Mari Doceria (Nutrição)", category: "Doces", price: 5, description: "Brigadeiro com biscoito, cortado em quadradinhos e polvilhado com açúcar.", image: u("photo-1499636136210-6f4ee915583e"), rating: 4.7, sold: 276 },
-  { id: "p6", name: "Marmita Fit Frango & Legumes", seller: "Mari Doceria (Nutrição)", category: "Saudável", price: 18, description: "Arroz integral, frango grelhado e legumes no vapor. 400g.", image: u("photo-1512621776951-a57141f2eefd"), rating: 4.8, sold: 150 },
-  { id: "p7", name: "Suco Natural de Laranja", seller: "Salgados do Pedro (ADS)", category: "Bebidas", price: 6, description: "Laranja espremida na hora, sem açúcar. 300ml.", image: u("photo-1600271886742-f049cd451bba"), rating: 4.5, sold: 98 },
-  { id: "p8", name: "Bowl Vegano de Grão-de-Bico", seller: "Mari Doceria (Nutrição)", category: "Vegano", price: 16, description: "Grão-de-bico assado, quinoa, folhas e molho tahine.", image: u("photo-1540420773420-3366772f4999"), rating: 4.7, sold: 74 },
-];
+  { id: "p1", name: "Bolo de Pote", seller: SELLER_NAME, category: "Bolos", price: 8, description: "Camadas de massa fofinha, creme de leite Ninho e brigadeiro. Pote de 250ml.", image: imgBolo, rating: 4.9, sold: 312 },
+  { id: "p2", name: "Esfirra", seller: "Salgados do Pedro (ADS)", category: "Salgados", price: 8, description: "Massa crocante, recheio cremoso de frango desfiado com Catupiry original.", image: imgEsfirra, rating: 4.8, sold: 540 },
+  { id: "p3", name: "Brownie Artesanal", seller: SELLER_NAME, category: "Doces", price: 8.5, description: "Chocolate 70% cacau, casquinha crocante e centro molhadinho.", image: imgBrownie, rating: 4.9, sold: 401 },
+  { id: "p4", name: "Empada de Frango", seller: "Salgados do Pedro (ADS)", category: "Salgados", price: 6, description: "Massa amanteigada que desmancha, recheio de frango com Catupiry.", image: imgEmpada, rating: 4.6, sold: 188 },
+  { id: "p5", name: "Suco Natural", seller: "Mari Doceria (Nutrição)", category: "Doces", price: 5, description: "Sucos naturais sem açucar.", image: imgSuco, rating: 4.7, sold: 276 },
+  { id: "p6", name: "Cookie Artesanal", seller: "Mari Doceria (Nutrição)", category: "Saudável", price: 4, description: "Cookies de chocolates recheados com brigadeiro", image: imgCookie, rating: 4.8, sold: 150 },
+]
 
 const now = Date.now();
 const INITIAL_ORDERS: Order[] = [

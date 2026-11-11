@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useStore, type Role } from "@/lib/store";
 import { cn } from "@/lib/utils";
+import logoImg from "../../public/assets/logo.png";
 
 export function AppHeader() {
   const { role, setRole, cart, favorites, user, setUser } = useStore();
@@ -41,8 +42,7 @@ export function AppHeader() {
       </div>
       <div className="mx-auto flex max-w-6xl items-center gap-2 px-4 py-3">
         <Link to="/" className="mr-auto flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-hero text-primary-foreground"><UtensilsCrossed className="h-5 w-5" /></span>
-          <span className="font-display text-2xl font-extrabold text-primary-deep">Uni<span className="text-secondary">food</span></span>
+          <img src={logoImg} className="h-8 md:h-10 w-auto object-contain"/>
         </Link>
         {role === "buyer" ? (
           <nav className="flex items-center gap-1">
