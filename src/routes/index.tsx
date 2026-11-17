@@ -22,7 +22,7 @@ function Landing() {
         <img src="/assets/unifoodmobile.png" alt="Unifood" className="relative h-36 w-auto object-contain drop-shadow-md sm:h-44" />
       </div>
 
-      <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl animate-in fade-in slide-in-from-bottom-2 duration-500">
+      <h1 className="font-display text-4xl font-extrabold tracking-tight text-[var(--primary-deep)] sm:text-5xl animate-in fade-in slide-in-from-bottom-2 duration-500">
         Uni<span className="text-secondary">food</span>
       </h1>
       <p className="mt-3 max-w-md text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-100">
