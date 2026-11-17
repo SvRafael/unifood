@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as FavoritosRouteImport } from './routes/favoritos'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as SacolaRouteImport } from './routes/sacola'
 import { Route as VendedorRouteImport } from './routes/vendedor'
+import { Route as VitrineRouteImport } from './routes/vitrine'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const FavoritosRoute = FavoritosRouteImport.update({
   id: '/favoritos',
   path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SacolaRoute = SacolaRouteImport.update({
@@ -34,39 +41,60 @@ const VendedorRoute = VendedorRouteImport.update({
   path: '/vendedor',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VitrineRoute = VitrineRouteImport.update({
+  id: '/vitrine',
+  path: '/vitrine',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/favoritos': typeof FavoritosRoute
+  '/login': typeof LoginRoute
   '/sacola': typeof SacolaRoute
   '/vendedor': typeof VendedorRoute
+  '/vitrine': typeof VitrineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/favoritos': typeof FavoritosRoute
+  '/login': typeof LoginRoute
   '/sacola': typeof SacolaRoute
   '/vendedor': typeof VendedorRoute
+  '/vitrine': typeof VitrineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/favoritos': typeof FavoritosRoute
+  '/login': typeof LoginRoute
   '/sacola': typeof SacolaRoute
   '/vendedor': typeof VendedorRoute
+  '/vitrine': typeof VitrineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/favoritos' | '/sacola' | '/vendedor'
+  fullPaths:
+    '/' | '/favoritos' | '/login' | '/sacola' | '/vendedor' | '/vitrine'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/favoritos' | '/sacola' | '/vendedor'
-  id: '__root__' | '/' | '/favoritos' | '/sacola' | '/vendedor'
+  to: '/' | '/favoritos' | '/login' | '/sacola' | '/vendedor' | '/vitrine'
+  id:
+    | '__root__'
+    | '/'
+    | '/favoritos'
+    | '/login'
+    | '/sacola'
+    | '/vendedor'
+    | '/vitrine'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FavoritosRoute: typeof FavoritosRoute
+  LoginRoute: typeof LoginRoute
   SacolaRoute: typeof SacolaRoute
   VendedorRoute: typeof VendedorRoute
+  VitrineRoute: typeof VitrineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +113,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FavoritosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sacola': {
       id: '/sacola'
       path: '/sacola'
@@ -99,14 +134,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VendedorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vitrine': {
+      id: '/vitrine'
+      path: '/vitrine'
+      fullPath: '/vitrine'
+      preLoaderRoute: typeof VitrineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FavoritosRoute: FavoritosRoute,
+  LoginRoute: LoginRoute,
   SacolaRoute: SacolaRoute,
   VendedorRoute: VendedorRoute,
+  VitrineRoute: VitrineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

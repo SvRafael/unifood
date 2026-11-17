@@ -18,7 +18,7 @@ export type Order = {
   id: string; customer: string; items: { name: string; qty: number }[]; total: number;
   status: OrderStatus; createdAt: number; delivery: string; payment: string;
 };
-export type User = { name: string; email: string; course?: string; semester?: string; ra?: string };
+export type User = { name: string; email: string; course?: string | undefined; semester?: string | undefined; ra?: string | undefined };
 export type Role = "buyer" | "seller";
 
 const u = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=800&q=70`;

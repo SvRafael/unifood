@@ -1,73 +1,55 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
-import { Search, Sparkles } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { ProductCard } from "@/components/ProductCard";
-import { CATEGORIES, useStore, type Category } from "@/lib/store";
-import { cn } from "@/lib/utils";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, GraduationCap, ShoppingBag, Store } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Vitrine | Unifood" },
-      { name: "description", content: "Bolos, doces, salgados e marmitas feitos por alunos do campus. Busque, favorite e peça." },
-      { property: "og:title", content: "Vitrine | Unifood" },
-      { property: "og:description", content: "Bolos, doces, salgados e marmitas feitos por alunos do campus." },
+      { title: "Unifood — Marketplace universitário" },
+      { name: "description", content: "O marketplace dos alunos empreendedores do seu campus. Entre para comprar ou vender lanches, doces e marmitas." },
+      { property: "og:title", content: "Unifood — Marketplace universitário" },
+      { property: "og:description", content: "O marketplace dos alunos empreendedores do seu campus." },
     ],
   }),
-  component: Index,
+  component: Landing,
 });
 
-type Sort = "relevance" | "price" | "sold";
-
-function Index() {
-  const { products } = useStore();
-  const [q, setQ] = useState("");
-  const [cat, setCat] = useState<Category | "Todos">("Todos");
-  const [sort, setSort] = useState<Sort>("relevance");
-
-  const list = useMemo(() => {
-    const t = q.trim().toLowerCase();
-    const r = products.filter((p) => (cat === "Todos" || p.category === cat) && (!t || p.name.toLowerCase().includes(t) || p.seller.toLowerCase().includes(t)));
-    if (sort === "price") return [...r].sort((a, b) => a.price - b.price);
-    if (sort === "sold") return [...r].sort((a, b) => b.sold - a.sold);
-    return r;
-  }, [products, q, cat, sort]);
-
+function Landing() {
   return (
-    <div className="space-y-6">
-      <section className="relative overflow-hidden rounded-3xl bg-hero p-6 text-primary-foreground sm:p-10">
-        <p className="mb-2 inline-flex items-center gap-1 rounded-full bg-primary-foreground/15 px-3 py-1 text-xs font-bold"><Sparkles className="h-3.5 w-3.5" /> Cupom calouro: UNICALOURO10</p>
-        <h1 className="max-w-xl text-3xl font-extrabold leading-tight sm:text-5xl">O lanche do intervalo, feito por quem estuda com você.</h1>
-        <div className="relative mt-6 max-w-xl">
-          <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-          <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Buscar por item ou vendedor..." className="h-12 rounded-full border-0 bg-card pl-11 text-base text-foreground" />
-        </div>
-      </section>
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
-          {(["Todos", ...CATEGORIES] as const).map((c) => (
-            <button key={c} onClick={() => setCat(c)}
-              className={cn("shrink-0 rounded-full border px-4 py-1.5 text-sm font-bold transition-colors", cat === c ? "border-primary bg-primary text-primary-foreground" : "bg-card hover:border-primary hover:text-primary")}>
-              {c}
-            </button>
-          ))}
-        </div>
-        <select value={sort} onChange={(e) => setSort(e.target.value as Sort)} className="h-9 rounded-full border bg-card px-3 text-sm font-semibold">
-          <option value="relevance">Relevância</option>
-          <option value="price">Menor preço</option>
-          <option value="sold">Mais vendidos</option>
-        </select>
+    <div className="flex min-h-[75vh] flex-col items-center justify-center text-center">
+      <div className="relative mb-6 flex items-center justify-center animate-in fade-in zoom-in-95 duration-500">
+        <div className="absolute -inset-6 rounded-full bg-secondary/20 blur-2xl" />
+        <img src="/assets/unifoodmobile.png" alt="Unifood" className="relative h-36 w-auto object-contain drop-shadow-md sm:h-44" />
       </div>
 
-      {list.length ? (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {list.map((p) => <ProductCard key={p.id} p={p} />)}
-        </div>
-      ) : (
-        <p className="py-16 text-center text-muted-foreground">Nenhum item encontrado. Tente outra busca.</p>
-      )}
+      <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl animate-in fade-in slide-in-from-bottom-2 duration-500">
+        Uni<span className="text-secondary">food</span>
+      </h1>
+      <p className="mt-3 max-w-md text-muted-foreground animate-in fade-in slide-in-from-bottom-2 duration-500 delay-100">
+        O marketplace dos alunos empreendedores do seu campus. Bolos, doces, salgados e marmitas feitos por quem estuda com você.
+      </p>
+
+      <div className="mt-8 flex w-full max-w-xs flex-col gap-3 animate-in fade-in slide-in-from-bottom-2 duration-500 delay-200">
+        <Button asChild size="lg" className="rounded-full text-base font-bold shadow-card">
+          <Link to="/login">
+            Entrar / Começar <ArrowRight className="h-5 w-5" />
+          </Link>
+        </Button>
+      </div>
+
+      <div className="mt-12 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3 animate-in fade-in duration-700 delay-300">
+        {[
+          { icon: Store, t: "Vitrine do campus", d: "Produtos feitos por alunos vendedores" },
+          { icon: ShoppingBag, t: "Pedido fácil", d: "Retire no bloco ou receba na sala" },
+          { icon: GraduationCap, t: "Renda de aluno", d: "Venda e fature entre uma aula e outra" },
+        ].map(({ icon: Icon, t, d }) => (
+          <div key={t} className="rounded-2xl border bg-card p-4 text-left shadow-card">
+            <Icon className="h-5 w-5 text-primary" />
+            <p className="mt-2 text-sm font-bold">{t}</p>
+            <p className="text-xs text-muted-foreground">{d}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
