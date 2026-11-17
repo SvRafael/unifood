@@ -76,8 +76,8 @@ function Login() {
 
         <form onSubmit={submit} className="grid gap-3">
           {mode === "signup" && <F label="Nome completo" name="name" required />}
-          <F label="E-mail institucional" name="email" type="email" required placeholder="voce@universidade.edu.br" />
-          <F label="Senha" name="password" type="password" required />
+          <F label="E-mail institucional" name="email" type="email" required defaultValue={"aluno@univem.com.br"} placeholder="voce@universidade.edu.br" />
+          <F label="Senha" name="password" type="password" defaultValue={"#rd123pp123"} required />
           {mode === "signup" && (
             <div className="grid grid-cols-3 gap-2 rounded-xl bg-muted p-3">
               <p className="col-span-3 text-xs font-semibold text-muted-foreground">Contexto acadêmico (opcional)</p>
